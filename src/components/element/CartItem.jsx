@@ -20,7 +20,7 @@ const CartItem = ({products, setPro}) => {
 
     const handlerDelete = () =>{ 
 
-        axios.delete('https://ecommerce-api-react.herokuapp.com/api/v1/cart/9', getAunt())
+        axios.delete('https://ecommerce-api-react.herokuapp.com/api/v1/cart/'+products.id, getAunt())
         .then(() => {const URL = 'https://ecommerce-api-react.herokuapp.com/api/v1/cart'
         axios.get(URL, getAunt())
           .then(res => setPro(res.data.data.cart.products))
@@ -31,7 +31,6 @@ const CartItem = ({products, setPro}) => {
         })
     }
 
-    console.log(products)
   return (
     <div className='cartcardbox'>
     <div className='titulocart'>

@@ -37,12 +37,13 @@ const header = () => {
       const URL = 'https://ecommerce-api-react.herokuapp.com/api/v1/cart'
       axios.get(URL, getAunt())
         .then(res => setCartProducts(res.data.data.cart.products))
-        .catch(err => setCartProducts())
+        
     
-        setTotal(cartProducts?.reduce((sum, i) => {
+        let temp=cartProducts?.reduce((sum, i) => {
           return sum + (i.price * i.productsInCart.quantity)
-        }, 0))
-        console.log(total)
+        }, 0)
+        setTotal(temp)
+       
 }
   }, [isOpen, onOpen, onClose, setCartProducts]);
   
