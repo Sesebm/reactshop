@@ -31,9 +31,10 @@ function App() {
 
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route element={<Protected />}>
         <Route path="/purchases" element={<Purchases />} />
 	      <Route path="/Products/:id" element={<Products />} />
-
+      </Route>
       </Routes>
       <Footer/>
     </HashRouter>
