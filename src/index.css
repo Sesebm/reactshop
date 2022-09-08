@@ -1,0 +1,27 @@
+.cards-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.Home-divition{
+    display: grid;
+    grid-template-columns: 1fr 5fr; 
+}
+@media (max-width:1250px) {
+    .cards-container{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .Home-divition{
+        display: block;
+    }
+@media (max-width:650px) {
+
+    .cards-container{
+        display: block;
+    }
+    .Home-divition{
+        display: block;
+    }
+}
+}
