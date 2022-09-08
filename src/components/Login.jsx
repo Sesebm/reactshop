@@ -31,6 +31,17 @@ import { useSelector } from 'react-redux';
 
 
 const Login = () => {
+
+  const [tab, setTab] = useState(1)
+  
+  const handleTab2= () => {
+    setTab(2)
+    console.log(tab)
+    }
+    const handleTab1= () => {
+      setTab(1)
+      console.log(tab)
+      }
   const token = useSelector(state => state.token)
   const navigate = useNavigate();
   if(token!=0){
@@ -43,6 +54,7 @@ navigate("/")
     initialValues: {
       email: "",
       password: "",
+      password2: "",
     },
     onSubmit: (values) => {
     axios.post('https://ecommerce-api-react.herokuapp.com/api/v1/users/login', values)
@@ -53,11 +65,12 @@ navigate("/")
   });
 
   return (
-    <div>
+  
+  <div>
       <Tabs isFitted variant="enclosed">
         <TabList mb="1em">
-          <Tab>Login</Tab>
-          <Tab>Create New User</Tab>
+          <Tab onClick={handleTab1}>Login</Tab>
+          <Tab onClick={handleTab2}>Create New User</Tab>
         </TabList>
         <TabPanels>
           //aca va lo de 1
@@ -120,7 +133,7 @@ navigate("/")
             </Flex>
           </TabPanel>
           // aca va lo de 2
-          <TabPanel>
+          <TabPanel >
             <Flex
               minH={"100vh"}
               align={"center"}
@@ -129,7 +142,7 @@ navigate("/")
             >
               <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
                 <Stack align={"center"}>
-                  <Heading fontSize={"4xl"} textAlign={"center"}>
+                  <Heading fontSize={"4xl"} textAlign={"center"} >
                     Sign up
                   </Heading>
                   <Text fontSize={"lg"} color={"gray.600"}>

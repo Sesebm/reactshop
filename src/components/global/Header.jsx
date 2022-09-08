@@ -9,18 +9,20 @@ import {
   DrawerContent,
   DrawerCloseButton,
   Button, 
-  useDisclosure,
-  Input
+  useDisclosure
 } from '@chakra-ui/react'
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import CartItem from '../element/CartItem';
 
+
 const header = () => {
   const [cartProducts, setCartProducts] = useState()
+  const [total, setTotal] = useState(0)
+  
   const token = useSelector(state => state.token)
-  console.log(cartProducts)
+  
   const getAunt = () => ({
     
       headers: {
@@ -31,15 +33,20 @@ const header = () => {
  const { isOpen, onOpen, onClose } = useDisclosure()
 
   useEffect(() => {
-   
+    if(token!=0){
       const URL = 'https://ecommerce-api-react.herokuapp.com/api/v1/cart'
       axios.get(URL, getAunt())
         .then(res => setCartProducts(res.data.data.cart.products))
         .catch(err => setCartProducts())
     
-  }, [isOpen, onOpen, onClose]);
+        setTotal(cartProducts?.reduce((sum, i) => {
+          return sum + (i.price * i.productsInCart.quantity)
+        }, 0))
+        console.log(total)
+}
+  }, [isOpen, onOpen, onClose, setCartProducts]);
   
-  handleCheckout = () =>{
+  const handleCheckout = () =>{
     const URL = 'https://ecommerce-api-react.herokuapp.com/api/v1/purchases'
     const obj = {
       street: "Green St. 1456",
@@ -48,10 +55,13 @@ const header = () => {
       city: "USA",
       references: "Some references"
     }
-    axios.post(URL, obj, getConfig())
+    axios.post(URL, obj, getAunt())
       .then(res => {
-        console.log(res.data)
-        getAllProductsCart()
+       
+        setCartProducts(null)
+        setTotal(0)
+
+        onClose
       })
       .catch(err => console.log(err))
   }
@@ -102,7 +112,7 @@ const header = () => {
             
           <div className="cart-cards">
         {cartProducts?.map((item, index) => (
-          <CartItem key={item.id} products={item}/>
+          <CartItem key={item.id} products={item} setPro={setCartProducts}/>
         ))}
       </div>
 
@@ -110,12 +120,12 @@ const header = () => {
 
           <DrawerFooter>
           <div className="footerdrawer">
-          <p>Total:</p>
+          <p>Total:  {total} $</p>
           <br />
             <Button variant='outline' mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button colorScheme='blue' onClick={handleCheckout}>Cheekout</Button></div>
+            <Button colorScheme='blue' onClick={handleCheckout}>Checkout</Button></div>
             <br />
           </DrawerFooter>
         </DrawerContent>

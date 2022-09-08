@@ -7,10 +7,35 @@
     display: grid;
     grid-template-columns: 1fr 5fr; 
 }
+
+.cartcardbox{
+    background-color: rgb(152, 167, 201);
+    margin: 5px;
+    border-radius: 20px;
+    padding: 10px;
+    position: relative;
+}
+
+.titulocart{
+    font-size: 18px;
+    font-weight: bold;
+}
+.cartcarddivition{
+    display: flex;
+    align-content: space-around;
+    justify-content: space-around;
+    flex-direction: row;
+    font-size: 14px;
+}
+.cartcentral{
+    text-align: center;
+    font-weight: bold;
+}
 @media (max-width:1250px) {
     .cards-container{
         display: grid;
         grid-template-columns: 1fr 1fr;
+
     }
     .Home-divition{
         display: block;
